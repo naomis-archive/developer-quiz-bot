@@ -1,1 +1,4 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Want to edit or add questions?
+    url: https://github.com/freecodecamp/developer_quiz_site
