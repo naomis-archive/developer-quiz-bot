@@ -1,7 +1,7 @@
-import { Prisma } from "@prisma/client";
+import { Scores } from "../interfaces/Scores";
 
 export const QuestionUrls: {
-  [key in keyof Required<Prisma.ScoreSelectScalar>]: string;
+  [key in keyof Required<Scores>]: string;
 } = {
   accessibility:
     "https://github.com/freeCodeCamp/Developer_Quiz_Site/raw/main/src/data/accessibility-quiz.ts",

@@ -1,7 +1,7 @@
-import { Prisma } from "@prisma/client";
+import { Scores } from "../interfaces/Scores";
 
 export const CategoryNames: {
-  [key in keyof Required<Prisma.ScoreSelectScalar>]: string;
+  [key in keyof Required<Scores>]: string;
 } = {
   accessibility: "Accessibility",
   agile: "Agile",

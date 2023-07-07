@@ -10,33 +10,29 @@ datasource db {
   url      = env("MONGO_URL")
 }
 
-type Score {
-  accessibility         Int
-  agile                 Int
-  cloudComputing        Int
-  css                   Int
-  devops                Int
-  freeCodeCamp          Int
-  computerScience       Int
-  git                   Int
-  html                  Int
-  informationTechnology Int
-  javascript            Int
-  linux                 Int
-  python                Int
-  qualityAssurance      Int
-  regex                 Int
-  security              Int
-  sql                   Int
-}
-
 model users {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  serverId String
-  userId   String
-  username String
-  scores   Score
-  total    Int    @default(0)
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  serverId              String
+  userId                String
+  username              String
+  accessibility         Int    @default(0)
+  agile                 Int    @default(0)
+  cloudComputing        Int    @default(0)
+  css                   Int    @default(0)
+  devops                Int    @default(0)
+  freeCodeCamp          Int    @default(0)
+  computerScience       Int    @default(0)
+  git                   Int    @default(0)
+  html                  Int    @default(0)
+  informationTechnology Int    @default(0)
+  javascript            Int    @default(0)
+  linux                 Int    @default(0)
+  python                Int    @default(0)
+  qualityAssurance      Int    @default(0)
+  regex                 Int    @default(0)
+  security              Int    @default(0)
+  sql                   Int    @default(0)
+  total                 Int    @default(0)
 
   @@unique([serverId, userId], map: "userId_serverId")
   @@index([userId], map: "userId")

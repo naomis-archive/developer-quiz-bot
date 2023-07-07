@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { Client } from "discord.js";
 
 import { IntentOptions } from "./config/IntentOptions";
@@ -13,6 +14,8 @@ import { validateEnv } from "./utils/validateEnv";
   try {
     const bot = new Client({ intents: IntentOptions }) as ExtendedClient;
     validateEnv(bot);
+    bot.db = new PrismaClient();
+    await bot.db.$connect();
     await loadQuestions(bot);
 
     bot.on("ready", async () => {

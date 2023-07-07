@@ -1,7 +1,6 @@
-import { Prisma } from "@prisma/client";
-
 import { QuestionUrls } from "../config/QuestionUrls";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { Scores } from "../interfaces/Scores";
 
 import { logHandler } from "./logHandler";
 import { parseQuestions } from "./parseQuestions";
@@ -17,7 +16,7 @@ export const loadQuestions = async (bot: ExtendedClient) => {
   // @ts-expect-error - We're going to be assigning to this property.
   bot.questions = {};
   const urls = Object.entries(QuestionUrls) as [
-    keyof Required<Prisma.ScoreSelectScalar>,
+    keyof Required<Scores>,
     string
   ][];
   for (const [key, url] of urls) {

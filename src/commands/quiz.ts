@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -9,6 +8,7 @@ import {
 
 import { CategoryNames } from "../config/CategoryNames";
 import { Command } from "../interfaces/Command";
+import { Scores } from "../interfaces/Scores";
 import { generateQuizAnswers } from "../modules/generateQuizAnswers";
 import { errorHandler } from "../utils/errorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
@@ -37,7 +37,7 @@ export const quiz: Command = {
       const category = interaction.options.getString(
         "category",
         true
-      ) as keyof Prisma.ScoreSelectScalar;
+      ) as keyof Scores;
       const question = getRandomValue(bot.questions[category]);
       const answers = generateQuizAnswers(question);
       const embed = new EmbedBuilder();
@@ -86,6 +86,7 @@ export const quiz: Command = {
           });
           return;
         }
+        let correct = false;
         const embed = new EmbedBuilder();
         embed.setDescription(question.Explanation);
         embed.addFields({
@@ -97,6 +98,7 @@ export const quiz: Command = {
         if (responseValue === question.Answer) {
           embed.setTitle("Correct!");
           embed.setColor(0x00ff00);
+          correct = true;
         } else {
           embed.setTitle("Not quite...");
           embed.setColor(0xff0000);
@@ -105,6 +107,31 @@ export const quiz: Command = {
           embeds: [embed],
           components: [],
         });
+        if (correct) {
+          await bot.db.users.upsert({
+            where: {
+              serverId_userId: {
+                serverId: interaction.guild.id,
+                userId: interaction.user.id,
+              },
+            },
+            update: {
+              [category]: {
+                increment: 1,
+              },
+              total: {
+                increment: 1,
+              },
+            },
+            create: {
+              serverId: interaction.guild.id,
+              userId: interaction.user.id,
+              username: interaction.user.username,
+              [category]: 1,
+              total: 1,
+            },
+          });
+        }
       });
 
       collector.on("end", async () => {
