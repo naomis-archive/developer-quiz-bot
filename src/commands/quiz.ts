@@ -43,6 +43,9 @@ export const quiz: Command = {
       const embed = new EmbedBuilder();
       embed.setTitle(question.Question);
       embed.addFields(answers);
+      embed.setFooter({
+        text: "https://developerquiz.org",
+      });
 
       const aButton = new ButtonBuilder()
         .setStyle(ButtonStyle.Primary)
@@ -92,6 +95,9 @@ export const quiz: Command = {
         embed.addFields({
           name: "Learn More!",
           value: question.Link,
+        });
+        embed.setFooter({
+          text: "https://developerquiz.org",
         });
         const response = i.customId;
         const responseValue = answers.find((m) => m.name === response)?.value;
