@@ -1,6 +1,6 @@
 {
   "name": "developer-quiz-bot",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A bot that allows you to take freeCodeCamp's Developer Quiz right on Discord.",
   "main": "prod/index.js",
   "scripts": {
