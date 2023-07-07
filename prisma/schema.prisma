@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+type Score {
+  accessibility         Int
+  agile                 Int
+  cloudComputing        Int
+  css                   Int
+  devops                Int
+  freeCodeCamp          Int
+  computerScience       Int
+  git                   Int
+  html                  Int
+  informationTechnology Int
+  javascript            Int
+  linux                 Int
+  python                Int
+  qualityAssurance      Int
+  regex                 Int
+  security              Int
+  sql                   Int
+}
+
+model users {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  serverId String
+  userId   String
+  username String
+  scores   Score
+  total    Int    @default(0)
+
+  @@unique([serverId, userId], map: "userId_serverId")
+  @@index([userId], map: "userId")
+}
