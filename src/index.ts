@@ -41,12 +41,20 @@ import { validateEnv } from "./utils/validateEnv";
     bot.on("guildCreate", async (guild) => {
       await bot.env.webhook.send({
         content: `Joined guild: ${guild.name} (${guild.id}) - now at ${bot.guilds.cache.size} guilds.`,
+        username: bot.user?.username ?? "Developer Quiz",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
       });
     });
 
     bot.on("guildDelete", async (guild) => {
       await bot.env.webhook.send({
         content: `Left guild: ${guild.name} (${guild.id}) - now at ${bot.guilds.cache.size} guilds.`,
+        username: bot.user?.username ?? "Developer Quiz",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
       });
     });
 

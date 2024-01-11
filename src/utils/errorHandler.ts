@@ -27,5 +27,11 @@ export const errorHandler = async (
   embed.setTitle(`Error in ${context}`);
   embed.setDescription(`Error Stack:\n\`\`\`\n${err.stack}\n\`\`\``);
   embed.addFields([{ name: "Error Message", value: err.message }]);
-  await bot.env.webhook.send({ embeds: [embed] });
+  await bot.env.webhook.send({
+    embeds: [embed],
+    username: bot.user?.username ?? "Developer Quiz",
+    avatarURL:
+      bot.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 };
